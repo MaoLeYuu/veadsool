@@ -1,7 +1,6 @@
 package com.cpf.veadsool.util;
 
 import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -11,7 +10,6 @@ import com.baomidou.mybatisplus.generator.config.converts.OracleTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.cpf.veadsool.entity.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +29,6 @@ public class GenerateUtil {
         gc.setAuthor("caopengflying");
         gc.setOpen(false);
         gc.setBaseResultMap(true);
-        gc.setIdType(IdType.AUTO);
 //         gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
 
@@ -80,7 +77,6 @@ public class GenerateUtil {
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
         templateConfig.setXml(null);
-        templateConfig.setEntity("");
         mpg.setTemplate(templateConfig);
 
         // 策略配置
@@ -90,12 +86,7 @@ public class GenerateUtil {
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         // 写于父类中的公共字段
-        strategy.setSuperEntityClass(BaseEntity.class);
         strategy.setSuperEntityColumns("id");
-        strategy.setSuperEntityColumns("createUser");
-        strategy.setSuperEntityColumns("createTime");
-        strategy.setSuperEntityColumns("updateUser");
-        strategy.setSuperEntityColumns("updateTime");
         strategy.setInclude("grade_files","student_files","student_credits_flow","rules","grade","student");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
