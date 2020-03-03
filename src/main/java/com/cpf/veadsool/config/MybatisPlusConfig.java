@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 
 @Configuration
-@MapperScan("com.cpf.xunwu.mapper")
+@MapperScan("com.cpf.veadsool.mapper")
 public class MybatisPlusConfig {
 
     /**
@@ -28,7 +28,7 @@ public class MybatisPlusConfig {
         MybatisSqlSessionFactoryBean sqlSessionFactory = new MybatisSqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sqlSessionFactory.setMapperLocations(resolver.getResources("classpath:xunwu/*Mapper.xml"));
+        sqlSessionFactory.setMapperLocations(resolver.getResources("classpath:mapper/*Mapper.xml"));
         try {
             return sqlSessionFactory.getObject();
         } catch (Exception e) {

@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.generator.config.converts.OracleTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.cpf.veadsool.entity.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class GenerateUtil {
         gc.setAuthor("caopengflying");
         gc.setOpen(false);
         gc.setBaseResultMap(true);
+        gc.setBaseColumnList(true);
 //         gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
 
@@ -53,6 +55,7 @@ public class GenerateUtil {
             @Override
             public void initMap() {
                 // to do nothing
+
             }
         };
 
@@ -86,7 +89,8 @@ public class GenerateUtil {
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("id");
+        strategy.setSuperEntityClass(BaseEntity.class);
+        strategy.setSuperEntityColumns("id","create_user","create_time","update_user","update_time");
         strategy.setInclude("grade_files","student_files","student_credits_flow","rules","grade","student");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
