@@ -12,5 +12,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-03-03
  */
 public interface IGradeService extends IService<Grade> {
-
+    /**
+     * 根据主键修改
+     * @param grade
+     * @return
+     */
+    boolean update(Grade grade);
 }

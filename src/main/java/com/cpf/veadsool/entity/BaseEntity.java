@@ -24,7 +24,11 @@ public class BaseEntity implements Serializable {
      */
     @TableField("create_user")
     private Integer createUser;
-
+    /**
+     * 创建人姓名
+     */
+    @TableField(exist = false)
+    private Integer createUserName;
     /**
      * 创建时间
      */
@@ -36,6 +40,11 @@ public class BaseEntity implements Serializable {
      */
     @TableField("update_user")
     private Integer updateUser;
+    /**
+     * 修改人
+     */
+    @TableField(exist = false)
+    private Integer updateUserName;
 
     /**
      * 修改时间

@@ -12,5 +12,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-03-03
  */
 public interface IStudentFilesService extends IService<StudentFiles> {
-
+    /**
+     * 修改
+     * @param studentFiles
+     * @return
+     */
+    boolean update(StudentFiles studentFiles);
 }
