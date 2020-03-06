@@ -29,7 +29,7 @@ public class Rules extends BaseEntity {
     /**
      * 1:加分  0 减分
      */
-    private Integer ruleFlag;
+    private Boolean ruleFlag;
 
     /**
      * 1:考勤规则  2:奖惩规则

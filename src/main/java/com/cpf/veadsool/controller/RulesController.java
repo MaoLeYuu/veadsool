@@ -36,7 +36,7 @@ public class RulesController {
     }
 
     @PostMapping("/create")
-    public Result create(Rules rules) {
+    public Result create(@RequestBody Rules rules) {
         boolean save = iRulesService.save(rules);
         if (save) {
             return ErrorConstant.getSuccessResult("新增成功");
@@ -45,7 +45,7 @@ public class RulesController {
     }
 
     @PostMapping("/update")
-    public Result update(Rules rules) {
+    public Result update(@RequestBody Rules rules) {
         boolean update = iRulesService.update(rules);
         if (update) {
             return ErrorConstant.getSuccessResult("修改成功");
@@ -54,9 +54,13 @@ public class RulesController {
     }
 
     @PostMapping("/delete")
-    public Result delete(List<Integer> ids) {
-        if (CollectionUtils.isNotEmpty(ids)) {
-            boolean delete = iRulesService.removeByIds(ids);
+    public Result delete(@RequestBody Rules rules) {
+        if (null != rules.getId()) {
+            Rules byId = iRulesService.getById(rules.getId());
+            if (null == byId){
+                return ErrorConstant.getErrorResult(ErrorConstant.FAIL, "数据已刷新");
+            }
+            boolean delete = iRulesService.removeById(rules.getId());
             if (delete) {
                 return ErrorConstant.getSuccessResult("删除成功");
             }

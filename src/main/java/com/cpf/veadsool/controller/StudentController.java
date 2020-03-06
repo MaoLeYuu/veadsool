@@ -13,11 +13,7 @@ import com.cpf.veadsool.service.IRulesService;
 import com.cpf.veadsool.service.IStudentService;
 import com.cpf.veadsool.util.ModelTransformUtils;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -44,7 +40,7 @@ public class StudentController {
     }
 
     @PostMapping("/create")
-    public Result create(Student student) {
+    public Result create(@RequestBody Student student) {
         boolean save = iStudentService.save(student);
         if (save) {
             return ErrorConstant.getSuccessResult("新增成功");
@@ -53,7 +49,7 @@ public class StudentController {
     }
 
     @PostMapping("/update")
-    public Result update(Student student) {
+    public Result update(@RequestBody Student student) {
         boolean update = iStudentService.update(student);
         if (update) {
             return ErrorConstant.getSuccessResult("修改成功");
@@ -62,9 +58,13 @@ public class StudentController {
     }
 
     @PostMapping("/delete")
-    public Result delete(List<Integer> ids) {
-        if (CollectionUtils.isNotEmpty(ids)) {
-            boolean delete = iStudentService.removeByIds(ids);
+    public Result delete(@RequestBody Student student) {
+        if (null != student.getId()) {
+            Student byId = iStudentService.getById(student.getId());
+            if (null != byId){
+                return ErrorConstant.getErrorResult(ErrorConstant.FAIL, "数据已刷新");
+            }
+            boolean delete = iStudentService.removeById(student.getId());
             if (delete) {
                 return ErrorConstant.getSuccessResult("删除成功");
             }

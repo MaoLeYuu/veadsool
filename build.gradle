@@ -49,7 +49,6 @@ dependencies {
 			"org.slf4j:slf4j-api:1.7.25",
 			"org.apache.commons:commons-lang3:3.4",
 			"com.google.code.google-collections:google-collect:snapshot-20080530",
-			'org.modelmapper:modelmapper:2.3.5'
 
 	)
 }

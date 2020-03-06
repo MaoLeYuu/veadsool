@@ -1,6 +1,7 @@
 package com.cpf.veadsool.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cpf.veadsool.base.ErrorConstant;
 import com.cpf.veadsool.base.Result;
 import com.cpf.veadsool.dto.GradeDto;
@@ -10,11 +11,13 @@ import com.cpf.veadsool.entity.Rules;
 import com.cpf.veadsool.service.IGradeService;
 import com.cpf.veadsool.service.IRulesService;
 import com.cpf.veadsool.util.ModelTransformUtils;
+import com.google.common.collect.Maps;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -31,14 +34,18 @@ public class GradeController {
     private IGradeService iGradeService;
 
     @GetMapping("/list")
-    public Result<List<GradeDto>> list() {
-        List<Grade> list = iGradeService.list();
-        List<GradeDto> result = ModelTransformUtils.exchangeClassList(list, GradeDto.class);
-        return ErrorConstant.getSuccessResult(result);
+    public Result<List<GradeDto>> list(Integer current, Integer offset) {
+        Page<Grade> page = new Page<>(current,offset);
+        Page<Grade> pageResult = iGradeService.page(page);
+        Map<String, Object> resultMap = Maps.newHashMap();
+        List<GradeDto> result = ModelTransformUtils.exchangeClassList(pageResult.getRecords(), GradeDto.class);
+        resultMap.put("list", result);
+        resultMap.put("count", pageResult.getTotal());
+        return ErrorConstant.getSuccessResult(resultMap);
     }
 
     @PostMapping("/create")
-    public Result create(Grade grade) {
+    public Result create(@RequestBody Grade grade) {
         boolean save = iGradeService.save(grade);
         if (save) {
             return ErrorConstant.getSuccessResult("新增成功");
@@ -56,9 +63,13 @@ public class GradeController {
     }
 
     @PostMapping("/delete")
-    public Result delete(List<Integer> ids) {
-        if (CollectionUtils.isNotEmpty(ids)) {
-            boolean delete = iGradeService.removeByIds(ids);
+    public Result delete(@RequestBody Grade grade) {
+        if (null != grade.getId()) {
+            Grade byId = iGradeService.getById(grade.getId());
+            if (null != byId){
+                return ErrorConstant.getErrorResult(ErrorConstant.FAIL, "数据已刷新");
+            }
+            boolean delete = iGradeService.removeById(grade.getId());
             if (delete) {
                 return ErrorConstant.getSuccessResult("删除成功");
             }
