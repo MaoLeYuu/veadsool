@@ -44,6 +44,13 @@ public class GradeController {
         return ErrorConstant.getSuccessResult(resultMap);
     }
 
+    @GetMapping("/listAll")
+    public Result<List<GradeDto>> listAll() {
+        List<Grade> gradeList = iGradeService.list();
+        List<GradeDto> result = ModelTransformUtils.exchangeClassList(gradeList, GradeDto.class);
+        return ErrorConstant.getSuccessResult(result);
+    }
+
     @PostMapping("/create")
     public Result create(@RequestBody Grade grade) {
         boolean save = iGradeService.save(grade);

@@ -1,7 +1,10 @@
 package com.cpf.veadsool.service;
 
+import com.cpf.veadsool.dto.StudentDto;
 import com.cpf.veadsool.entity.Student;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,4 +21,6 @@ public interface IStudentService extends IService<Student> {
      * @return
      */
     boolean update(Student student);
+
+    List<StudentDto> listStudent();
 }

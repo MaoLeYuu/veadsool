@@ -16,5 +16,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class StudentDto extends Student {
-
+    /**
+     * 班级名称
+     */
+    private String gradeName;
 }

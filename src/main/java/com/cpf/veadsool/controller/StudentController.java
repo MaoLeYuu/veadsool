@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -32,11 +33,10 @@ public class StudentController {
     @Resource
     private IStudentService iStudentService;
 
+
     @GetMapping("/list")
     public Result<List<StudentDto>> list() {
-        List<Student> list = iStudentService.list();
-        List<StudentDto> result = ModelTransformUtils.exchangeClassList(list, StudentDto.class);
-        return ErrorConstant.getSuccessResult(result);
+        return ErrorConstant.getSuccessResult(iStudentService.listStudent());
     }
 
     @PostMapping("/create")
@@ -61,7 +61,7 @@ public class StudentController {
     public Result delete(@RequestBody Student student) {
         if (null != student.getId()) {
             Student byId = iStudentService.getById(student.getId());
-            if (null != byId){
+            if (null == byId){
                 return ErrorConstant.getErrorResult(ErrorConstant.FAIL, "数据已刷新");
             }
             boolean delete = iStudentService.removeById(student.getId());
