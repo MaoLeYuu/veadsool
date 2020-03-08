@@ -36,10 +36,12 @@ dependencies {
 	compile 'commons-io:commons-io:2.6'
 	compile 'org.freemarker:freemarker:2.3.29'
 	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.58'
+// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.48'
 
 
 	compile(
-			"mysql:mysql-connector-java",
+//			"mysql:mysql-connector-java",
 			"com.alibaba:easyexcel:2.0.0",
 			"com.baomidou:mybatis-plus-boot-starter:3.3.0",
 			"com.baomidou:mybatis-plus-generator:3.3.1.tmp",
