@@ -1,7 +1,10 @@
 package com.cpf.veadsool.service;
 
+import com.cpf.veadsool.dto.StudentCreditsFlowDto;
 import com.cpf.veadsool.entity.StudentCreditsFlow;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -18,4 +21,11 @@ public interface IStudentCreditsFlowService extends IService<StudentCreditsFlow>
      * @return
      */
     boolean update(StudentCreditsFlow studentCreditsFlow);
+
+    /**
+     * 获取列表
+     * @return
+     */
+    List<StudentCreditsFlowDto> listFlow();
+
 }

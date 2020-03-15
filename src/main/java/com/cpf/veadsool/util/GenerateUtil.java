@@ -91,7 +91,8 @@ public class GenerateUtil {
         // 写于父类中的公共字段
         strategy.setSuperEntityClass(BaseEntity.class);
         strategy.setSuperEntityColumns("id","create_user","create_time","update_user","update_time");
-        strategy.setInclude("grade_files","student_files","student_credits_flow","rules","grade","student");
+//        strategy.setInclude("grade_files","student_files","student_credits_flow","rules","grade","student");
+        strategy.setInclude("user");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);

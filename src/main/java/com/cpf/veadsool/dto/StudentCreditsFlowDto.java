@@ -16,5 +16,12 @@ import lombok.ToString;
 @Setter
 @ToString
 public class StudentCreditsFlowDto extends StudentCreditsFlow {
-
+    /**
+     * 规则名称
+     */
+    private String ruleName;
+    /**
+     * 学生名称
+     */
+    private String studentName;
 }
