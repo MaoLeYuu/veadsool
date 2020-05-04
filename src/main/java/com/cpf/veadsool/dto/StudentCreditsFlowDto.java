@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 
 /**
  * @author caopengflying
@@ -21,7 +23,23 @@ public class StudentCreditsFlowDto extends StudentCreditsFlow {
      */
     private String ruleName;
     /**
+     * 规则类型
+     */
+    private Integer ruleType;
+    /**
+     * 规则类型
+     */
+    private String ruleTypeName;
+    /**
+     * 分数变动
+     */
+    private BigDecimal changePoints;
+    /**
      * 学生名称
      */
     private String studentName;
+    /**
+     * 状态名称
+     */
+    private String statusName;
 }

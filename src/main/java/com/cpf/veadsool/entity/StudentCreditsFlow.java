@@ -29,6 +29,10 @@ public class StudentCreditsFlow extends BaseEntity {
      * 学生标识
      */
     private Integer studentId;
+    /**
+     * 状态 0：未统计  1：已统计
+     */
+    private Integer status;
 
 
 }

@@ -1,6 +1,8 @@
 package com.cpf.veadsool.service.impl;
 
 import com.cpf.veadsool.base.BusinessException;
+import com.cpf.veadsool.constants.RulesEnum;
+import com.cpf.veadsool.constants.StudentCreditsFlowEnum;
 import com.cpf.veadsool.dto.StudentCreditsFlowDto;
 import com.cpf.veadsool.entity.Rules;
 import com.cpf.veadsool.entity.Student;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -55,10 +58,10 @@ public class StudentCreditsFlowServiceImpl extends ServiceImpl<StudentCreditsFlo
             ruleIdList.add(studentCreditsFlow.getRuleId());
             studentIdList.add(studentCreditsFlow.getStudentId());
         }
-        Map<Integer, String> ruleMap = Maps.newHashMap();
+        Map<Integer, Rules> ruleMap = Maps.newHashMap();
         if (CollectionUtils.isNotEmpty(ruleIdList)) {
             List<Rules> rules = iRuleService.listByIds(ruleIdList);
-            ruleMap = rules.parallelStream().collect(Collectors.toMap(Rules::getId, Rules::getRuleName));
+            ruleMap = rules.parallelStream().collect(Collectors.toMap(Rules::getId, Function.identity()));
         }
         Map<Integer, String> studentMap = Maps.newHashMap();
         if (CollectionUtils.isNotEmpty(studentIdList)) {
@@ -72,8 +75,16 @@ public class StudentCreditsFlowServiceImpl extends ServiceImpl<StudentCreditsFlo
                 studentCreditsFlowDto.setStudentName(studentMap.get(studentCreditsFlow.getStudentId()));
             }
             if (ruleMap.containsKey(studentCreditsFlow.getRuleId())){
-                studentCreditsFlowDto.setRuleName(ruleMap.get(studentCreditsFlow.getRuleId()));
+                studentCreditsFlowDto.setRuleName(ruleMap.get(studentCreditsFlow.getRuleId()).getRuleName());
+                studentCreditsFlowDto.setRuleTypeName(RulesEnum.getRuleTypeName(ruleMap.get(studentCreditsFlow.getRuleId()).getRuleType()));
+                studentCreditsFlowDto.setRuleType(ruleMap.get(studentCreditsFlow.getRuleId()).getRuleType());
+                if (ruleMap.get(studentCreditsFlow.getRuleId()).getRuleFlag()){
+                    studentCreditsFlowDto.setChangePoints(ruleMap.get(studentCreditsFlow.getRuleId()).getChangePoints());
+                }else {
+                    studentCreditsFlowDto.setChangePoints(ruleMap.get(studentCreditsFlow.getRuleId()).getChangePoints().negate());
+                }
             }
+            studentCreditsFlowDto.setStatusName(StudentCreditsFlowEnum.getStatusName(studentCreditsFlow.getStatus()));
             resultList.add(studentCreditsFlowDto);
         }
         return resultList;

@@ -37,6 +37,9 @@ public class RulesController {
 
     @PostMapping("/create")
     public Result create(@RequestBody Rules rules) {
+        if (null == rules.getRuleFlag()){
+            rules.setRuleFlag(false);
+        }
         boolean save = iRulesService.save(rules);
         if (save) {
             return ErrorConstant.getSuccessResult("新增成功");
