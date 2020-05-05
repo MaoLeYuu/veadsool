@@ -7,6 +7,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,5 +61,43 @@ public class SpringAdviceFilter {
         return new Result(ex.getCode(), message, baos.toString());
     }
 
+    /**
+     * 验证异常
+     * @param req
+     * @param e
+     * @return
+     * @throws MethodArgumentNotValidException
+     */
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ResponseBody
+    public Result handleMethodArgumentNotValidException(HttpServletRequest req, MethodArgumentNotValidException e) throws MethodArgumentNotValidException {
+        Result r = new Result();
+        BindingResult bindingResult = e.getBindingResult();
+        StringBuilder errorMesssage = new StringBuilder("Invalid Request:\n");
+
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            errorMesssage.append(fieldError.getDefaultMessage()).append("\n");
+        }
+        r.setStatus(ErrorConstant.PARAM_IS_NULL);
+        r.setText(errorMesssage.toString());
+        logger.error("MethodArgumentNotValidException",e);
+        return r;
+    }
+
+    @ExceptionHandler(value = BindException.class)
+    @ResponseBody
+    public Result handleBindException(BindException e) throws BindException {
+        // ex.getFieldError():随机返回一个对象属性的异常信息。如果要一次性返回所有对象属性异常信息，则调用ex.getAllErrors()
+        FieldError fieldError = e.getFieldError();
+        assert fieldError != null;
+        // 生成返回结果
+        Result r = new Result();
+        r.setStatus(ErrorConstant.PARAM_IS_NULL);
+        String sb = fieldError.getField() + "=[" + fieldError.getRejectedValue() + "]" +
+                fieldError.getDefaultMessage();
+        r.setText(sb);
+        logger.error("BindException", e);
+        return r;
+    }
 
 }

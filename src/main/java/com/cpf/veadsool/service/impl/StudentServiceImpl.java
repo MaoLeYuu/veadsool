@@ -42,16 +42,32 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     public List<StudentDto> listStudent() {
         List<Student> list = this.list();
         if (CollectionUtils.isNotEmpty(list)){
-            List<Integer> studentIdList = list.parallelStream().map(Student::getGradeId).collect(Collectors.toList());
-            List<Grade> gradeList = iGradeService.listByIds(studentIdList);
-            Map<Integer, String> collect = gradeList.parallelStream().collect(Collectors.toMap(Grade::getId, Grade::getGradeName));
-            return list.parallelStream().map(e -> {
-                StudentDto studentDto = new StudentDto();
-                BeanUtils.copyProperties(e, studentDto);
-                studentDto.setGradeName(collect.get(e.getGradeId()));
-                return studentDto;
-            }).collect(Collectors.toList());
+           return exchangeName(list);
+
         }
         return Lists.newArrayList();
+    }
+
+    @Override
+    public List<StudentDto> listStudentByIds(List<Integer> studentIdList) {
+        List<Student> students = this.listByIds(studentIdList);
+        return exchangeName(students);
+    }
+
+    /**
+     * 置换名称
+     * @param list
+     * @return
+     */
+    private List<StudentDto> exchangeName(List<Student> list) {
+        List<Integer> studentIdList = list.parallelStream().map(Student::getGradeId).collect(Collectors.toList());
+        List<Grade> gradeList = iGradeService.listByIds(studentIdList);
+        Map<Integer, String> collect = gradeList.parallelStream().collect(Collectors.toMap(Grade::getId, Grade::getGradeName));
+        return list.parallelStream().map(e -> {
+            StudentDto studentDto = new StudentDto();
+            BeanUtils.copyProperties(e, studentDto);
+            studentDto.setGradeName(collect.get(e.getGradeId()));
+            return studentDto;
+        }).collect(Collectors.toList());
     }
 }

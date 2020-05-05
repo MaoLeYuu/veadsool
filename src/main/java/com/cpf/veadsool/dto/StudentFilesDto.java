@@ -16,5 +16,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class StudentFilesDto extends StudentFiles {
-
+    private String studentNo;
+    private String studentName;
+    private String gradeName;
 }

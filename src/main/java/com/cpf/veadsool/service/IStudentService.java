@@ -23,4 +23,11 @@ public interface IStudentService extends IService<Student> {
     boolean update(Student student);
 
     List<StudentDto> listStudent();
+
+    /**
+     * 根据ids获取学生列表
+     * @param studentIdList
+     * @return
+     */
+    List<StudentDto> listStudentByIds(List<Integer> studentIdList);
 }

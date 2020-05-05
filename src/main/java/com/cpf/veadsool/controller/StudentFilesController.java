@@ -11,13 +11,10 @@ import com.cpf.veadsool.service.IRulesService;
 import com.cpf.veadsool.service.IStudentFilesService;
 import com.cpf.veadsool.util.ModelTransformUtils;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -36,18 +33,14 @@ public class StudentFilesController {
 
     @GetMapping("/list")
     public Result<List<StudentFilesDto>> list() {
-        List<StudentFiles> list = iStudentFilesService.list();
-        List<StudentFilesDto> result = ModelTransformUtils.exchangeClassList(list, StudentFilesDto.class);
-        return ErrorConstant.getSuccessResult(result);
+        List<StudentFilesDto> studentFilesDtoList = iStudentFilesService.listFiles();
+        return ErrorConstant.getSuccessResult(studentFilesDtoList);
     }
 
     @PostMapping("/create")
-    public Result create(StudentFiles studentFiles) {
-        boolean save = iStudentFilesService.save(studentFiles);
-        if (save) {
-            return ErrorConstant.getSuccessResult("新增成功");
-        }
-        return ErrorConstant.getErrorResult(ErrorConstant.FAIL, "新增失败");
+    public Result create(@Valid @RequestBody StudentFiles studentFiles) {
+        iStudentFilesService.create(studentFiles);
+        return ErrorConstant.getSuccessResult("新增成功");
     }
 
     @PostMapping("/update")

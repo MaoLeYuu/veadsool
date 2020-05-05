@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 学生档案
@@ -24,11 +27,14 @@ public class StudentFiles extends BaseEntity {
     /**
      * 学生标识
      */
+    @NotNull
     private Integer studentId;
 
     /**
      * 文化课成绩
      */
+    @NotNull
+    @DecimalMin("0")
     private Integer culturalSubjectScore;
 
     /**
