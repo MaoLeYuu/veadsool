@@ -1,6 +1,7 @@
 package com.cpf.veadsool.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cpf.veadsool.annotation.NeedExchangeName;
 import com.cpf.veadsool.base.BusinessException;
 import com.cpf.veadsool.dto.RulesDto;
 import com.cpf.veadsool.entity.Rules;
@@ -25,6 +26,7 @@ import java.util.List;
 public class RulesServiceImpl extends ServiceImpl<RulesMapper, Rules> implements IRulesService {
 
     @Override
+    @NeedExchangeName
     public List<RulesDto> list(Rules rules) {
         QueryWrapper<Rules> queryWrapper = new QueryWrapper<>();
         if (null != rules.getRuleType()) {

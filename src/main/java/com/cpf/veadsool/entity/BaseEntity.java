@@ -28,7 +28,7 @@ public class BaseEntity implements Serializable {
      * 创建人姓名
      */
     @TableField(exist = false)
-    private Integer createUserName;
+    private String createUserName;
     /**
      * 创建时间
      */
@@ -44,7 +44,7 @@ public class BaseEntity implements Serializable {
      * 修改人
      */
     @TableField(exist = false)
-    private Integer updateUserName;
+    private String updateUserName;
 
     /**
      * 修改时间
@@ -90,6 +90,22 @@ public class BaseEntity implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getCreateUserName() {
+        return createUserName;
+    }
+
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
+    }
+
+    public String getUpdateUserName() {
+        return updateUserName;
+    }
+
+    public void setUpdateUserName(String updateUserName) {
+        this.updateUserName = updateUserName;
     }
 
     @Override

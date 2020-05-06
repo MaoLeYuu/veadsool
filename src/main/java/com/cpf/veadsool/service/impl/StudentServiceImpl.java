@@ -1,5 +1,6 @@
 package com.cpf.veadsool.service.impl;
 
+import com.cpf.veadsool.annotation.NeedExchangeName;
 import com.cpf.veadsool.base.BusinessException;
 import com.cpf.veadsool.dto.StudentDto;
 import com.cpf.veadsool.entity.Grade;
@@ -8,6 +9,7 @@ import com.cpf.veadsool.mapper.StudentMapper;
 import com.cpf.veadsool.service.IGradeService;
 import com.cpf.veadsool.service.IStudentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Maps;
 import org.apache.commons.collections4.CollectionUtils;
 import org.assertj.core.util.Lists;
 import org.springframework.beans.BeanUtils;
@@ -39,6 +41,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     @Override
+    @NeedExchangeName
     public List<StudentDto> listStudent() {
         List<Student> list = this.list();
         if (CollectionUtils.isNotEmpty(list)){
@@ -60,13 +63,17 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
      * @return
      */
     private List<StudentDto> exchangeName(List<Student> list) {
-        List<Integer> studentIdList = list.parallelStream().map(Student::getGradeId).collect(Collectors.toList());
-        List<Grade> gradeList = iGradeService.listByIds(studentIdList);
-        Map<Integer, String> collect = gradeList.parallelStream().collect(Collectors.toMap(Grade::getId, Grade::getGradeName));
+        List<Integer> gradeIdList = list.parallelStream().map(Student::getGradeId).collect(Collectors.toList());
+        Map<Integer, String> collect = Maps.newHashBiMap();
+        if (CollectionUtils.isNotEmpty(gradeIdList)){
+            List<Grade> gradeList = iGradeService.listByIds(gradeIdList);
+            collect = gradeList.parallelStream().collect(Collectors.toMap(Grade::getId, Grade::getGradeName));
+        }
+        Map<Integer, String> finalCollect = collect;
         return list.parallelStream().map(e -> {
             StudentDto studentDto = new StudentDto();
             BeanUtils.copyProperties(e, studentDto);
-            studentDto.setGradeName(collect.get(e.getGradeId()));
+            studentDto.setGradeName(finalCollect.get(e.getGradeId()));
             return studentDto;
         }).collect(Collectors.toList());
     }

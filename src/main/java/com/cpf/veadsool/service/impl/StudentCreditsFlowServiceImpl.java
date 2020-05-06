@@ -1,5 +1,6 @@
 package com.cpf.veadsool.service.impl;
 
+import com.cpf.veadsool.annotation.NeedExchangeName;
 import com.cpf.veadsool.base.BusinessException;
 import com.cpf.veadsool.constants.RulesEnum;
 import com.cpf.veadsool.constants.StudentCreditsFlowEnum;
@@ -49,6 +50,7 @@ public class StudentCreditsFlowServiceImpl extends ServiceImpl<StudentCreditsFlo
     }
 
     @Override
+    @NeedExchangeName
     public List<StudentCreditsFlowDto> listFlow() {
         List<StudentCreditsFlow> list = this.list();
         List<StudentCreditsFlowDto> resultList = Lists.newArrayList();

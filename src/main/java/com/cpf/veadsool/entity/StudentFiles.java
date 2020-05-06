@@ -52,5 +52,7 @@ public class StudentFiles extends BaseEntity {
      */
     private BigDecimal realScore;
 
+    private String memo;
+
 
 }

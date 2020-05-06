@@ -2,6 +2,7 @@ package com.cpf.veadsool.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cpf.veadsool.annotation.NeedExchangeName;
 import com.cpf.veadsool.base.ErrorConstant;
 import com.cpf.veadsool.base.Result;
 import com.cpf.veadsool.dto.GradeDto;
@@ -34,6 +35,7 @@ public class GradeController {
     private IGradeService iGradeService;
 
     @GetMapping("/list")
+    @NeedExchangeName
     public Result<List<GradeDto>> list(Integer current, Integer offset) {
         Page<Grade> page = new Page<>(current,offset);
         Page<Grade> pageResult = iGradeService.page(page);
@@ -45,6 +47,7 @@ public class GradeController {
     }
 
     @GetMapping("/listAll")
+    @NeedExchangeName
     public Result<List<GradeDto>> listAll() {
         List<Grade> gradeList = iGradeService.list();
         List<GradeDto> result = ModelTransformUtils.exchangeClassList(gradeList, GradeDto.class);
@@ -73,7 +76,7 @@ public class GradeController {
     public Result delete(@RequestBody Grade grade) {
         if (null != grade.getId()) {
             Grade byId = iGradeService.getById(grade.getId());
-            if (null != byId){
+            if (null == byId){
                 return ErrorConstant.getErrorResult(ErrorConstant.FAIL, "数据已刷新");
             }
             boolean delete = iGradeService.removeById(grade.getId());
