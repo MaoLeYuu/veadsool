@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 班级 服务类
  * </p>
  *
- * @author caopengflying
+ * @author
  * @since 2020-03-03
  */
 public interface IGradeService extends IService<Grade> {
@@ -18,4 +18,6 @@ public interface IGradeService extends IService<Grade> {
      * @return
      */
     boolean update(Grade grade);
+
+
 }

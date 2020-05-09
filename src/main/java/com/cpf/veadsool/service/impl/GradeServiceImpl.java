@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * 班级 服务实现类
  * </p>
  *
- * @author caopengflying
+ * @author
  * @since 2020-03-03
  */
 @Service
@@ -25,4 +25,6 @@ public class GradeServiceImpl extends ServiceImpl<GradeMapper, Grade> implements
         }
         return this.updateById(grade);
     }
+
+
 }

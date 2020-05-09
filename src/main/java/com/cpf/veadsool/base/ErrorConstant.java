@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author caopengflying
+ * @author
  * @time 2020/1/21
  */
 public class ErrorConstant {

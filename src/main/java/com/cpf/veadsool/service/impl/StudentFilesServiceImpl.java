@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  * 学生档案 服务实现类
  * </p>
  *
- * @author caopengflying
+ * @author
  * @since 2020-03-03
  */
 @Service
@@ -103,9 +103,9 @@ public class StudentFilesServiceImpl extends ServiceImpl<StudentFilesMapper, Stu
             memo.append("有待提高综合能力！");
         }
 
-        if (studentFiles.getCulturalSubjectScore()> 500){
+        if (studentFiles.getCulturalSubjectScore()> 85){
             memo.append("文化科目成绩很好！");
-        }if (studentFiles.getCulturalSubjectScore()> 300){
+        }else if (studentFiles.getCulturalSubjectScore()> 60){
             memo.append("文化科目成绩一般，有待努力！");
         }else {
             memo.append("文化科目成绩很差，有必要一对一辅导！");
@@ -144,6 +144,5 @@ public class StudentFilesServiceImpl extends ServiceImpl<StudentFilesMapper, Stu
             return studentFilesDto;
         }).collect(Collectors.toList());
     }
-
 
 }

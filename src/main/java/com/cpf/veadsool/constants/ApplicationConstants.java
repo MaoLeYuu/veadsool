@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.math.BigDecimal;
 
 /**
- * @author caopengflying
+ * @author
  * @time 2020/1/26
  */
 public interface ApplicationConstants {

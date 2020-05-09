@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 班级档案 服务类
  * </p>
  *
- * @author caopengflying
+ * @author
  * @since 2020-03-03
  */
 public interface IGradeFilesService extends IService<GradeFiles> {

@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 基础规则 Mapper 接口
  * </p>
  *
- * @author caopengflying
+ * @author
  * @since 2020-03-03
  */
 public interface RulesMapper extends BaseMapper<Rules> {

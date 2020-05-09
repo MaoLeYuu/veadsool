@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  * 用户基本信息表
  * </p>
  *
- * @author caopengflying
+ * @author
  * @since 2020-03-15
  */
 @Data

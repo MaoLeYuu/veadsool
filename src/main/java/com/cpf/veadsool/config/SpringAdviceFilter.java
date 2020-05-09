@@ -21,8 +21,8 @@ import java.io.PrintStream;
 /**
  * Reason: 拦截通用错误信息.
  *
- * @author Chen Lingang
- * @version $Id: SpringAdviceFilter, vo 0.1 16/8/8 上午11:26
+ * @author
+ * @version $Id: SpringAdviceFilter, vo 0.1
  */
 @ControllerAdvice
 @RestControllerAdvice

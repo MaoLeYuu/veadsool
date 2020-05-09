@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 班级档案 Mapper 接口
  * </p>
  *
- * @author caopengflying
+ * @author
  * @since 2020-03-03
  */
 public interface GradeFilesMapper extends BaseMapper<GradeFiles> {

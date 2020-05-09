@@ -1,7 +1,7 @@
 package com.cpf.veadsool.base;
 
 /**
- * @author caopengflying
+ * @author
  * @time 2020/1/25
  */
 public class BusinessException extends RuntimeException {

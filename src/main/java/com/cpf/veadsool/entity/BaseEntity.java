@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * @author caopengflying
+ * @author
  * @time 2020/3/3
  */
 public class BaseEntity implements Serializable {

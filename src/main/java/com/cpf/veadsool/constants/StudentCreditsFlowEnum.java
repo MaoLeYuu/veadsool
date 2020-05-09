@@ -3,7 +3,7 @@ package com.cpf.veadsool.constants;
 /**
  * date 2020/3/22
  *
- * @author caopengflying
+ * @author
  */
 public class StudentCreditsFlowEnum {
     public enum StatusEnum {

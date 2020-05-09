@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * 学生档案
  * </p>
  *
- * @author caopengflying
+ * @author
  * @since 2020-03-03
  */
 @Data

@@ -11,7 +11,7 @@ import java.util.List;
  * 学分变动流水 服务类
  * </p>
  *
- * @author caopengflying
+ * @author
  * @since 2020-03-03
  */
 public interface IStudentCreditsFlowService extends IService<StudentCreditsFlow> {
